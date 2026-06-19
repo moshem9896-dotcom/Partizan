@@ -1,24 +1,28 @@
+```html
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partizan | Official Bio</title>
+    <title>PartizaN Empire</title>
+    <!-- חיבור לאייקונים של Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #030303;
-            --bg-gradient: radial-gradient(circle at top, #16120b 0%, #030303 70%);
-            --card-base: rgba(18, 18, 22, 0.65);
-            --card-border: rgba(255, 255, 255, 0.04);
-            --accent-gold: #cca152;
+            --bg-dark: #02040a;
+            --primary-blue: #00f2fe; /* כחול ניאון */
+            --accent-blue: #0072ff; /* כחול עמוק */
+            --card-base: rgba(10, 17, 34, 0.7);
+            --card-border: rgba(0, 242, 254, 0.15);
             --text-main: #ffffff;
-            --text-sub: #a1a1aa;
+            --text-sub: #94a3b8;
         }
 
         body {
-            background: var(--bg-dark);
-            background: var(--bg-gradient);
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 114, 255, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(0, 242, 254, 0.1) 0%, transparent 50%);
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
@@ -29,124 +33,189 @@
             min-height: 100vh;
             box-sizing: border-box;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* אנימציות חלקות */
-        @keyframes customFadeIn {
-            from { opacity: 0; transform: translateY(30px); filter: blur(5px); }
+        /* חלקיקים זוהרים מרחפים ברקע (אפקט קוסמי) */
+        .bg-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(0, 242, 254, 0.4);
+            border-radius: 50%;
+            animation: floatUp 8s infinite linear;
+        }
+
+        /* יצירת מגוון חלקיקים בגדלים שונים */
+        .particle:nth-child(1) { width: 4px; height: 4px; left: 15%; animation-delay: 0s; animation-duration: 12s; }
+        .particle:nth-child(2) { width: 6px; height: 6px; left: 45%; animation-delay: 2s; animation-duration: 15s; }
+        .particle:nth-child(3) { width: 3px; height: 3px; left: 75%; animation-delay: 4s; animation-duration: 10s; }
+        .particle:nth-child(4) { width: 5px; height: 5px; left: 85%; animation-delay: 1s; animation-duration: 14s; }
+        .particle:nth-child(5) { width: 4px; height: 4px; left: 30%; animation-delay: 5s; animation-duration: 11s; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* אנימציות כניסה חלקה של האלמנטים */
+        @keyframes fadeInBlur {
+            from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
             to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        @keyframes pulseRing {
-            0% { transform: scale(0.98); opacity: 0.5; }
-            50% { transform: scale(1.02); opacity: 0.8; }
-            100% { transform: scale(0.98); opacity: 0.5; }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.3), inset 0 0 15px rgba(0, 242, 254, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(0, 242, 254, 0.6), inset 0 0 20px rgba(0, 242, 254, 0.4); }
+            100% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.3), inset 0 0 15px rgba(0, 242, 254, 0.2); }
         }
 
         .container {
             width: 100%;
             max-width: 420px;
             text-align: center;
-            animation: customFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            z-index: 1;
+            animation: fadeInBlur 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* אזור הפרופיל היוקרתי */
-        .profile-wrapper {
+        /* עיצוב מעטפת הפרופיל */
+        .profile-container {
             position: relative;
             display: inline-block;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            width: 120px;
+            height: 120px;
         }
 
-        /* הילת רקע זוהרת */
-        .profile-glow {
+        /* הילה כחולה מטורפת סביב הלוגו */
+        .profile-glow-effect {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 140px;
-            height: 140px;
-            background: radial-gradient(circle, rgba(204, 161, 82, 0.25) 0%, rgba(0,0,0,0) 70%);
-            z-index: 1;
-            animation: pulseRing 3s infinite ease-in-out;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, var(--primary-blue), var(--accent-blue));
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(8px);
+            opacity: 0.85;
+            animation: pulseGlow 3s infinite ease-in-out;
         }
 
         .profile-pic {
-            position: relative;
-            width: 115px;
-            height: 115px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            border: 2px solid var(--accent-gold);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            border: 3px solid #ffffff;
             object-fit: cover;
-            z-index: 2;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+            display: block;
+        }
+
+        /* תצוגת אות גיבוי במידה והתמונה לא נטענת */
+        .profile-fallback {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+            background: radial-gradient(circle, var(--accent-blue) 0%, var(--bg-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 54px;
+            font-weight: 900;
+            color: var(--primary-blue);
+            text-shadow: 0 0 15px var(--primary-blue);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
         }
 
         h1 {
-            font-size: 28px;
-            margin: 10px 0 6px 0;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            background: linear-gradient(180deg, #fff 0%, #d4d4d8 100%);
+            font-size: 30px;
+            margin: 15px 0 5px 0;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--primary-blue) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(0, 242, 254, 0.2);
         }
 
         .subtitle {
-            color: var(--accent-gold);
-            font-size: 12px;
+            color: var(--primary-blue);
+            font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             margin-bottom: 40px;
-            font-weight: 700;
-            opacity: 0.9;
+            font-weight: 800;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
         }
 
         .links-container {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 15px;
         }
 
-        /* סגנון כפתור קריסטל בסיסי */
+        /* כפתורי זכוכית מעוצבים כחול-ניאון */
         .btn {
             background: var(--card-base);
             border: 1px solid var(--card-border);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border-radius: 20px;
             padding: 18px 24px;
             color: var(--text-main);
             text-decoration: none;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 0;
-            animation: customFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeInBlur 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* אנימציית הופעה מדורגת */
-        .btn:nth-child(1) { animation-delay: 0.15s; }
-        .btn:nth-child(2) { animation-delay: 0.25s; }
-        .btn:nth-child(3) { animation-delay: 0.35s; }
-        .btn:nth-child(4) { animation-delay: 0.45s; }
-        .btn:nth-child(5) { animation-delay: 0.55s; }
-        .btn:nth-child(6) { animation-delay: 0.65s; }
+        /* אנימציה מדורגת להופעת הכפתורים */
+        .btn:nth-child(1) { animation-delay: 0.1s; }
+        .btn:nth-child(2) { animation-delay: 0.2s; }
+        .btn:nth-child(3) { animation-delay: 0.3s; }
+        .btn:nth-child(4) { animation-delay: 0.4s; }
+        .btn:nth-child(5) { animation-delay: 0.5s; }
+        .btn:nth-child(6) { animation-delay: 0.6s; }
 
-        .btn-main-content {
+        .btn-content {
             display: flex;
             align-items: center;
             gap: 16px;
         }
 
-        .btn i {
-            font-size: 22px;
-            width: 28px;
+        /* עיצוב האייקונים הגדולים */
+        .btn i.brand-icon {
+            font-size: 24px;
+            width: 30px;
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .kick-custom-icon {
+            font-weight: 900;
+            font-style: normal;
+            font-size: 20px;
+            width: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, color 0.3s ease;
         }
 
         .chevron {
@@ -155,131 +224,149 @@
             transition: transform 0.3s ease, color 0.3s ease;
         }
 
-        /* אפקטים ייחודיים בלחיצה/ריחוף לכל רשת בנפרד 🚀 */
-        
-        /* יוטיוב - אדום */
-        .btn-youtube:hover, .btn-youtube:active {
-            border-color: #ff0000;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.25);
-            background: rgba(255, 0, 0, 0.06);
-        }
-        .btn-youtube:hover i, .btn-youtube:active i { color: #ff0000; transform: scale(1.1); }
+        /* צבעי אייקונים ברקע כברירת מחדל */
+        .fa-youtube { color: #ff0000; }
+        .fa-tiktok { color: #00f2fe; }
+        .fa-instagram { color: #e1306c; }
+        .fa-discord { color: #5865f2; }
+        .kick-color { color: #53fc18; }
 
-        /* קיק - ירוק בהיר */
-        .btn-kick:hover, .btn-kick:active {
-            border-color: #53FC18;
-            box-shadow: 0 0 25px rgba(83, 252, 24, 0.25);
-            background: rgba(83, 252, 24, 0.06);
+        /* אפקט ריחוף ולחיצה כללי שמתאים לכחול ניאון */
+        .btn:hover, .btn:active {
+            background: rgba(0, 242, 254, 0.08);
+            border-color: var(--primary-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.25);
         }
-        .btn-kick .kick-txt { font-weight: 900; font-style: normal; font-size: 18px; color: var(--text-main); transition: color 0.3s; }
-        .btn-kick:hover .kick-txt, .btn-kick:active .kick-txt { color: #53FC18; }
 
-        /* טיקטוק - סייאן/ניאון */
-        .btn-tiktok:hover, .btn-tiktok:active {
-            border-color: #00f2fe;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.25);
-            background: rgba(0, 242, 254, 0.06);
+        /* הגדלה קלה של האייקונים בריחוף */
+        .btn:hover i.brand-icon, .btn:active i.brand-icon,
+        .btn:hover .kick-custom-icon, .btn:active .kick-custom-icon {
+            transform: scale(1.15);
+            text-shadow: 0 0 10px currentColor;
         }
-        .btn-tiktok:hover i, .btn-tiktok:active i { color: #00f2fe; transform: scale(1.1); }
 
-        /* אינסטגרם - מג'נטה */
-        .btn-instagram:hover, .btn-instagram:active {
-            border-color: #E1306C;
-            box-shadow: 0 0 25px rgba(225, 48, 108, 0.25);
-            background: rgba(225, 48, 108, 0.06);
-        }
-        .btn-instagram:hover i, .btn-instagram:active i { color: #E1306C; transform: scale(1.1); }
-
-        /* דיסקורד - כחול אלגנט */
-        .btn-discord:hover, .btn-discord:active {
-            border-color: #5865F2;
-            box-shadow: 0 0 25px rgba(88, 101, 242, 0.25);
-            background: rgba(88, 101, 242, 0.06);
-        }
-        .btn-discord:hover i, .btn-discord:active i { color: #5865F2; transform: scale(1.1); }
-
-        /* חץ זז קדימה בכל לחיצה */
+        /* חץ זז שמאלה בריחוף */
         .btn:hover .chevron, .btn:active .chevron {
-            transform: translateX(-5px);
-            color: #ffffff;
+            transform: translateX(-6px);
+            color: var(--primary-blue);
         }
 
+        /* עיצוב כותרת התחתית המשודרגת */
         .footer-tag {
-            margin-top: 50px;
-            font-size: 11px;
-            color: var(--accent-gold);
-            letter-spacing: 2px;
-            opacity: 0.6;
+            margin-top: 60px;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            background: linear-gradient(90deg, #cca152, #fff, #cca152);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.9;
+            text-shadow: 0 2px 10px rgba(204, 161, 82, 0.3);
+            display: inline-block;
+            position: relative;
         }
+
+        .footer-tag::after, .footer-tag::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 25px;
+            height: 1px;
+            background: #cca152;
+        }
+
+        .footer-tag::before { right: -35px; }
+        .footer-tag::after { left: -35px; }
     </style>
 </head>
 <body>
 
+    <!-- אפקט חלקיקים זוהרים ברקע -->
+    <div class="bg-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
     <div class="container">
         
-        <div class="profile-wrapper">
-            <div class="profile-glow"></div>
-            <img src="profile.jpg" alt="Partizan" class="profile-pic">
+        <div class="profile-container">
+            <div class="profile-glow-effect"></div>
+            <!-- זכור להעלות את תמונת הלוגו לגיטהאב ולקרוא לה בדיוק profile.jpg -->
+            <img src="profile.jpg" alt="PartizaN" class="profile-pic" onerror="this.style.display='none'; document.getElementById('fallback-avatar').style.display='flex';">
+            <div id="fallback-avatar" class="profile-fallback" style="display: none;">P</div>
         </div>
 
         <h1>PARTIZAN</h1>
-        <div class="subtitle">Official Community</div>
+        <div class="subtitle">Official Bio</div>
 
         <div class="links-container">
             
-            <a href="https://youtube.com/@partizanyt?si=tMghgjRiHxWrb5j9" target="_blank" class="btn btn-youtube">
-                <div class="btn-main-content">
-                    <i class="fab fa-youtube"></i>
+            <!-- 1. יוטיוב -->
+            <a href="https://youtube.com/@partizanyt?si=tMghgjRiHxWrb5j9" target="_blank" class="btn">
+                <div class="btn-content">
+                    <i class="fab fa-youtube brand-icon"></i>
                     <span>ערוץ היוטיוב</span>
                 </div>
                 <i class="fas fa-chevron-left chevron"></i>
             </a>
 
-            <a href="https://kick.com/partizanktv" target="_blank" class="btn btn-kick">
-                <div class="btn-main-content">
-                    <i class="kick-txt">K</i>
+            <!-- 2. קיק -->
+            <a href="https://kick.com/partizanktv" target="_blank" class="btn">
+                <div class="btn-content">
+                    <i class="kick-custom-icon kick-color">K</i>
                     <span>ערוץ ה-Kick</span>
                 </div>
                 <i class="fas fa-chevron-left chevron"></i>
             </a>
 
-            <a href="https://www.tiktok.com/@oryan_azulay?_r=1&_t=ZS-97LtX046qcq" target="_blank" class="btn btn-tiktok">
-                <div class="btn-main-content">
-                    <i class="fab fa-tiktok"></i>
+            <!-- 3. טיקטוק -->
+            <a href="https://www.tiktok.com/@oryan_azulay?_r=1&_t=ZS-97LtX046qcq" target="_blank" class="btn">
+                <div class="btn-content">
+                    <i class="fab fa-tiktok brand-icon"></i>
                     <span>ערוץ הטיקטוק</span>
                 </div>
                 <i class="fas fa-chevron-left chevron"></i>
             </a>
 
-            <a href="https://www.instagram.com/oryan_azulay/" target="_blank" class="btn btn-instagram">
-                <div class="btn-main-content">
-                    <i class="fab fa-instagram"></i>
+            <!-- 4. אינסטגרם -->
+            <a href="https://www.instagram.com/oryan_azulay/" target="_blank" class="btn">
+                <div class="btn-content">
+                    <i class="fab fa-instagram brand-icon"></i>
                     <span>אינסטגרם</span>
                 </div>
                 <i class="fas fa-chevron-left chevron"></i>
             </a>
 
-            <a href="https://discord.gg/U4Wt5fd8y" target="_blank" class="btn btn-discord">
-                <div class="btn-main-content">
-                    <i class="fab fa-discord"></i>
+            <!-- 5. דיסקורד ערוץ -->
+            <a href="https://discord.gg/U4Wt5fd8y" target="_blank" class="btn">
+                <div class="btn-content">
+                    <i class="fab fa-discord brand-icon"></i>
                     <span>שרת הדיסקורד של הערוץ</span>
                 </div>
                 <i class="fas fa-chevron-left chevron"></i>
             </a>
 
-            <a href="https://discord.gg/prrp" target="_blank" class="btn btn-discord">
-                <div class="btn-main-content">
-                    <i class="fab fa-discord"></i>
-                    <span>שרת הדיסקורד של השרת</span>
+            <!-- 6. דיסקורד שרת פייבאם -->
+            <a href="https://discord.gg/prrp" target="_blank" class="btn">
+                <div class="btn-content">
+                    <i class="fab fa-discord brand-icon"></i>
+                    <span>שרת הדיסקורד של שרת פייבאם</span>
                 </div>
                 <i class="fas fa-chevron-left chevron"></i>
             </a>
 
         </div>
 
-        <div class="footer-tag">Partizan // Gaming Community</div>
+        <!-- התחתית החדשה בדיוק כפי שביקשת -->
+        <div class="footer-tag">PartizaN Empire</div>
     </div>
 
 </body>
 </html>
+
+```
