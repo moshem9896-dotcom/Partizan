@@ -3,217 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partizan | Links</title>
+    <title>Partizan | Official Bio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-color: #09090b;
-            --card-bg: #141417;
-            --accent-color: #cca152; /* זהב */
-            --hover-bg: #1c1c21;
-            --text-color: #ffffff;
-            --text-secondary: #a1a1aa;
+            --bg-dark: #030303;
+            --bg-gradient: radial-gradient(circle at top, #16120b 0%, #030303 70%);
+            --card-base: rgba(18, 18, 22, 0.65);
+            --card-border: rgba(255, 255, 255, 0.04);
+            --accent-gold: #cca152;
+            --text-main: #ffffff;
+            --text-sub: #a1a1aa;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg-dark);
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 40px 20px;
+            padding: 50px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
             box-sizing: border-box;
+            overflow-x: hidden;
         }
 
-        /* אנימציית כניסה מלמטה למעלה */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* אנימציות חלקות */
+        @keyframes customFadeIn {
+            from { opacity: 0; transform: translateY(30px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        /* אנימציית זוהר פועם לתמונת הפרופיל */
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(204, 161, 82, 0.5); }
-            70% { box-shadow: 0 0 0 15px rgba(204, 161, 82, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(204, 161, 82, 0); }
+        @keyframes pulseRing {
+            0% { transform: scale(0.98); opacity: 0.5; }
+            50% { transform: scale(1.02); opacity: 0.8; }
+            100% { transform: scale(0.98); opacity: 0.5; }
         }
 
         .container {
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             text-align: center;
-            animation: fadeInUp 1s ease-out;
+            animation: customFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .profile-container {
-            margin-bottom: 20px;
+        /* אזור הפרופיל היוקרתי */
+        .profile-wrapper {
+            position: relative;
             display: inline-block;
+            margin-bottom: 25px;
+        }
+
+        /* הילת רקע זוהרת */
+        .profile-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, rgba(204, 161, 82, 0.25) 0%, rgba(0,0,0,0) 70%);
+            z-index: 1;
+            animation: pulseRing 3s infinite ease-in-out;
         }
 
         .profile-pic {
-            width: 110px;
-            height: 110px;
+            position: relative;
+            width: 115px;
+            height: 115px;
             border-radius: 50%;
-            border: 3px solid var(--accent-color);
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             object-fit: cover;
-            animation: pulseGlow 2s infinite;
+            z-index: 2;
         }
 
         h1 {
-            font-size: 26px;
-            margin: 10px 0 5px 0;
+            font-size: 28px;
+            margin: 10px 0 6px 0;
             font-weight: 800;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            background: linear-gradient(180deg, #fff 0%, #d4d4d8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .subtitle {
-            color: var(--accent-color);
-            font-size: 13px;
+            color: var(--accent-gold);
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 35px;
-            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            font-weight: 700;
+            opacity: 0.9;
         }
 
-        .links-wrapper {
+        .links-container {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
         }
 
-        /* עיצוב בסיסי לכפתורים */
+        /* סגנון כפתור קריסטל בסיסי */
         .btn {
-            background-color: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 16px 20px;
-            color: var(--text-color);
+            background: var(--card-base);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 18px 24px;
+            color: var(--text-main);
             text-decoration: none;
             font-size: 16px;
             font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 0;
-            animation: fadeInUp 0.5s ease-out forwards;
+            animation: customFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* אנימציה מדורגת - כל כפתור מופיע קצת אחרי קודמו */
-        .btn:nth-child(1) { animation-delay: 0.1s; }
-        .btn:nth-child(2) { animation-delay: 0.2s; }
-        .btn:nth-child(3) { animation-delay: 0.3s; }
-        .btn:nth-child(4) { animation-delay: 0.4s; }
-        .btn:nth-child(5) { animation-delay: 0.5s; }
-        .btn:nth-child(6) { animation-delay: 0.6s; }
+        /* אנימציית הופעה מדורגת */
+        .btn:nth-child(1) { animation-delay: 0.15s; }
+        .btn:nth-child(2) { animation-delay: 0.25s; }
+        .btn:nth-child(3) { animation-delay: 0.35s; }
+        .btn:nth-child(4) { animation-delay: 0.45s; }
+        .btn:nth-child(5) { animation-delay: 0.55s; }
+        .btn:nth-child(6) { animation-delay: 0.65s; }
 
-        /* אפקט מעבר בריחוף/לחיצה */
-        .btn:hover, .btn:active {
-            background-color: var(--hover-bg);
-            border-color: var(--accent-color);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(204, 161, 82, 0.15);
-        }
-
-        .btn-content {
+        .btn-main-content {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
         }
 
         .btn i {
-            font-size: 20px;
-            width: 25px;
+            font-size: 22px;
+            width: 28px;
             text-align: center;
+            transition: transform 0.3s ease;
         }
 
-        /* צבעי אייקונים מקוריים */
-        .fa-discord { color: #5865F2; }
-        .fa-youtube { color: #FF0000; }
-        .fa-instagram { color: #E1306C; }
-        .fa-tiktok { color: #00f2fe; }
-        .kick-icon { color: #53FC18; font-weight: bold; font-style: normal; font-size: 18px; }
-
-        .arrow-icon {
+        .chevron {
             font-size: 12px;
-            color: var(--text-secondary);
-            transition: transform 0.3s;
+            color: var(--text-sub);
+            transition: transform 0.3s ease, color 0.3s ease;
         }
 
-        .btn:hover .arrow-icon, .btn:active .arrow-icon {
-            transform: translateX(-4px);
-            color: var(--accent-color);
+        /* אפקטים ייחודיים בלחיצה/ריחוף לכל רשת בנפרד 🚀 */
+        
+        /* יוטיוב - אדום */
+        .btn-youtube:hover, .btn-youtube:active {
+            border-color: #ff0000;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.25);
+            background: rgba(255, 0, 0, 0.06);
+        }
+        .btn-youtube:hover i, .btn-youtube:active i { color: #ff0000; transform: scale(1.1); }
+
+        /* קיק - ירוק בהיר */
+        .btn-kick:hover, .btn-kick:active {
+            border-color: #53FC18;
+            box-shadow: 0 0 25px rgba(83, 252, 24, 0.25);
+            background: rgba(83, 252, 24, 0.06);
+        }
+        .btn-kick .kick-txt { font-weight: 900; font-style: normal; font-size: 18px; color: var(--text-main); transition: color 0.3s; }
+        .btn-kick:hover .kick-txt, .btn-kick:active .kick-txt { color: #53FC18; }
+
+        /* טיקטוק - סייאן/ניאון */
+        .btn-tiktok:hover, .btn-tiktok:active {
+            border-color: #00f2fe;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.25);
+            background: rgba(0, 242, 254, 0.06);
+        }
+        .btn-tiktok:hover i, .btn-tiktok:active i { color: #00f2fe; transform: scale(1.1); }
+
+        /* אינסטגרם - מג'נטה */
+        .btn-instagram:hover, .btn-instagram:active {
+            border-color: #E1306C;
+            box-shadow: 0 0 25px rgba(225, 48, 108, 0.25);
+            background: rgba(225, 48, 108, 0.06);
+        }
+        .btn-instagram:hover i, .btn-instagram:active i { color: #E1306C; transform: scale(1.1); }
+
+        /* דיסקורד - כחול אלגנט */
+        .btn-discord:hover, .btn-discord:active {
+            border-color: #5865F2;
+            box-shadow: 0 0 25px rgba(88, 101, 242, 0.25);
+            background: rgba(88, 101, 242, 0.06);
+        }
+        .btn-discord:hover i, .btn-discord:active i { color: #5865F2; transform: scale(1.1); }
+
+        /* חץ זז קדימה בכל לחיצה */
+        .btn:hover .chevron, .btn:active .chevron {
+            transform: translateX(-5px);
+            color: #ffffff;
+        }
+
+        .footer-tag {
+            margin-top: 50px;
+            font-size: 11px;
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+            opacity: 0.6;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="profile-container">
+        
+        <div class="profile-wrapper">
+            <div class="profile-glow"></div>
             <img src="profile.jpg" alt="Partizan" class="profile-pic">
         </div>
 
         <h1>PARTIZAN</h1>
-        <div class="subtitle">קהילה רשמית</div>
+        <div class="subtitle">Official Community</div>
 
-        <div class="links-wrapper">
-            <a href="https://discord.gg/U4Wt5fd8y" target="_blank" class="btn">
-                <div class="btn-content">
-                    <i class="fab fa-discord"></i>
-                    <span>שרת הדיסקורד של הערוץ</span>
-                </div>
-                <i class="fas fa-chevron-left arrow-icon"></i>
-            </a>
-
-            <a href="https://discord.gg/prrp" target="_blank" class="btn">
-                <div class="btn-content">
-                    <i class="fab fa-discord"></i>
-                    <span>שרת הדיסקורד של השרת</span>
-                </div>
-                <i class="fas fa-chevron-left arrow-icon"></i>
-            </a>
-
-            <a href="https://youtube.com/@partizanyt?si=tMghgjRiHxWrb5j9" target="_blank" class="btn">
-                <div class="btn-content">
+        <div class="links-container">
+            
+            <a href="https://youtube.com/@partizanyt?si=tMghgjRiHxWrb5j9" target="_blank" class="btn btn-youtube">
+                <div class="btn-main-content">
                     <i class="fab fa-youtube"></i>
                     <span>ערוץ היוטיוב</span>
                 </div>
-                <i class="fas fa-chevron-left arrow-icon"></i>
+                <i class="fas fa-chevron-left chevron"></i>
             </a>
 
-            <a href="https://kick.com/partizanktv" target="_blank" class="btn">
-                <div class="btn-content">
-                    <span class="kick-icon">K</span>
+            <a href="https://kick.com/partizanktv" target="_blank" class="btn btn-kick">
+                <div class="btn-main-content">
+                    <i class="kick-txt">K</i>
                     <span>ערוץ ה-Kick</span>
                 </div>
-                <i class="fas fa-chevron-left arrow-icon"></i>
+                <i class="fas fa-chevron-left chevron"></i>
             </a>
 
-            <a href="https://www.tiktok.com/@oryan_azulay?_r=1&_t=ZS-97LtX046qcq" target="_blank" class="btn">
-                <div class="btn-content">
+            <a href="https://www.tiktok.com/@oryan_azulay?_r=1&_t=ZS-97LtX046qcq" target="_blank" class="btn btn-tiktok">
+                <div class="btn-main-content">
                     <i class="fab fa-tiktok"></i>
                     <span>ערוץ הטיקטוק</span>
                 </div>
-                <i class="fas fa-chevron-left arrow-icon"></i>
+                <i class="fas fa-chevron-left chevron"></i>
             </a>
 
-            <a href="https://www.instagram.com/oryan_azulay/" target="_blank" class="btn">
-                <div class="btn-content">
+            <a href="https://www.instagram.com/oryan_azulay/" target="_blank" class="btn btn-instagram">
+                <div class="btn-main-content">
                     <i class="fab fa-instagram"></i>
                     <span>אינסטגרם</span>
                 </div>
-                <i class="fas fa-chevron-left arrow-icon"></i>
+                <i class="fas fa-chevron-left chevron"></i>
             </a>
+
+            <a href="https://discord.gg/U4Wt5fd8y" target="_blank" class="btn btn-discord">
+                <div class="btn-main-content">
+                    <i class="fab fa-discord"></i>
+                    <span>שרת הדיסקורד של הערוץ</span>
+                </div>
+                <i class="fas fa-chevron-left chevron"></i>
+            </a>
+
+            <a href="https://discord.gg/prrp" target="_blank" class="btn btn-discord">
+                <div class="btn-main-content">
+                    <i class="fab fa-discord"></i>
+                    <span>שרת הדיסקורד של השרת</span>
+                </div>
+                <i class="fas fa-chevron-left chevron"></i>
+            </a>
+
         </div>
+
+        <div class="footer-tag">Partizan // Gaming Community</div>
     </div>
 
 </body>
